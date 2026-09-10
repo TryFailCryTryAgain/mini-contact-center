@@ -1,0 +1,45 @@
+
+:root {
+
+  --color-purple: #5B2A86;
+  --color-purple-dark: #4A2170;
+  --color-purple-light: #EFE9F5;
+
+  --color-black: #1C1633;
+  --color-white: #FFFFFF;
+
+  --color-gray: #6B6478;
+  --color-gray-light: #E7E5EE;
+
+  --color-success: #2E7D32;
+  --color-error: #B3261E;
+
+  --font-primary: 'Inter', sans-serif;
+
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-bold: 700;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  font-weight: var(--font-weight-regular);
+}
+
+body {
+  min-height: 100vh;
+  color: var(--color-black);
+  background: var(--color-white);
+  transition:
+    color 0.5s,
+    background-color 0.5s;
+  line-height: 1.6;
+  font-family: var(--font-primary);
+  font-size: 15px;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
