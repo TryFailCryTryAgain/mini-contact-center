@@ -1,6 +1,13 @@
 import type { WebSocketServer, WebSocket } from 'ws';
 import { verifyToken } from '../auth/jwt';
-import { addClient, removeClient, getAllClients, getOnlineUsernames } from './presence';
+import {
+  addClient,
+  removeClient,
+  getAllClients,
+  getOnlineUsernames,
+  getHistory,
+  addToHistory,
+} from './presence';
 
 interface IncomingMessage {
   type: 'auth' | 'message';
@@ -31,6 +38,7 @@ export function setupWebSocket(wss: WebSocketServer) {
         try {
           const payload = verifyToken(data.token);
           addClient({ userId: payload.userId, username: payload.username, socket });
+          socket.send(JSON.stringify({ type: 'history', messages: getHistory() })); // ← also fixed: was missing ()
           broadcastPresence();
         } catch {
           socket.send(JSON.stringify({ type: 'error', message: 'Invalid or expired token.' }));
@@ -46,12 +54,15 @@ export function setupWebSocket(wss: WebSocketServer) {
           socket.send(JSON.stringify({ type: 'error', message: 'Not authenticated.' }));
           return;
         }
-        broadcast({
-          type: 'message',
+
+        const chatMessage = {
           username: client.username,
-          text: data.text,
+          text: data.text ?? '',
           timestamp: Date.now(),
-        });
+        };
+
+        addToHistory(chatMessage);
+        broadcast({ type: 'message', ...chatMessage });
       }
     });
 

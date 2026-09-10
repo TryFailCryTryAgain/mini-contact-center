@@ -34,18 +34,21 @@ export const useChatStore = defineStore('chat', () => {
 
       switch (data.type) {
         case 'message':
-          messages.value.push({
-            username: data.username,
-            text: data.text,
-            timestamp: data.timestamp,
-          })
-          break
+            messages.value.push({
+                username: data.username,
+                text: data.text,
+                timestamp: data.timestamp,
+            })
+            break
         case 'presence':
-          onlineUsers.value = data.users
-          break
+            onlineUsers.value = data.users
+            break
         case 'error':
-          console.error('WebSocket error:', data.message)
-          break
+            console.error('WebSocket error:', data.message)
+            break
+        case 'history':
+            messages.value = data.messages
+            break
       }
     }
 

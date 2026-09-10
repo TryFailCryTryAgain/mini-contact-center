@@ -6,6 +6,27 @@ export interface ConnectedClient {
   socket: WebSocket;
 }
 
+export interface ChatMessage {
+  username: string;
+  text: string;
+  timestamp: number;
+}
+
+const MAX_HISTORY = 50;
+const messageHistory: ChatMessage[] = [];
+
+export function addToHistory(message: ChatMessage) {
+  messageHistory.push(message);
+  if (messageHistory.length > MAX_HISTORY) {
+    messageHistory.shift();
+  }
+}
+
+export function getHistory(): ChatMessage[] {
+  return messageHistory;
+}
+
+
 const clients = new Map<WebSocket, ConnectedClient>();
 
 export function addClient(client: ConnectedClient) {
