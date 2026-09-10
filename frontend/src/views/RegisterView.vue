@@ -2,7 +2,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { RouterLink, useRouter } from 'vue-router'
-// import { useAuthStore } from '@/stores/auth'
+import { useAuthStore } from '@/stores/auth'
 
 const username = ref('')
 const password = ref('')
@@ -10,7 +10,7 @@ const confirmPassword = ref('')
 const error = ref('')
 const loading = ref(false)
 
-// const auth = useAuthStore()
+const auth = useAuthStore()
 const router = useRouter()
 
 async function handleSubmit() {

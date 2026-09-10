@@ -2,14 +2,14 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { RouterLink, useRouter } from 'vue-router'
-// import { useAuthStore } from '@/stores/auth'
+import { useAuthStore } from '@/stores/auth'
 
 const username = ref('')
 const password = ref('')
 const error = ref('')
 const loading = ref(false)
 
-// const auth = useAuthStore()
+const auth = useAuthStore()
 const router = useRouter()
 
 async function handleSubmit() {
@@ -80,8 +80,8 @@ async function handleSubmit() {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 24px;
   background: var(--color-gray-light);
+  padding: 24px;
 }
 
 .auth-card {
@@ -187,5 +187,4 @@ input:focus-visible {
   color: var(--color-purple);
   text-decoration: underline;
 }
-
 </style>
